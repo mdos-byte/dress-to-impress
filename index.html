@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dress to Impress</title>
+<style>
+body { margin:0; font-family: Arial, sans-serif; background: #ffd6e7; }
+.container { max-width: 1200px; margin: 20px auto; background: white; border-radius: 20px; padding: 20px; box-shadow: 0 10px 30px rgba(255,105,180,0.3); }
+h1 { text-align: center; color: #ff1493; }
+.game { display: flex; gap: 20px; }
+.sidebar, .right { width: 250px; }
+.main { flex: 1; text-align: center; }
+.character { max-width: 100%; height: 500px; object-fit: contain; border-radius: 15px; border: 5px solid #ff69b4; }
+button { display: block; width: 100%; margin: 8px 0; padding: 12px; background: #ff69b4; color: white; border: none; border-radius: 10px; cursor: pointer; font-size: 16px; }
+button:hover { background: #ff1493; }
+button.active { background: #da70d6; }
+#theme { font-size: 20px; font-weight: bold; color: #c71585; padding: 10px; background: #fff0f5; border-radius: 10px; }
+#score { font-size: 24px; color: #ff1493; }
+</style>
+</head>
+<body>
+<div class="container">
+  <h1>✨ DRESS TO IMPRESS ✨</h1>
+  <div class="game">
+    <div class="sidebar">
+      <h3>Theme</h3>
+      <div id="theme">Enchanted Evening</div>
+      <button onclick="changeTheme()">New Theme</button>
+      <h3>Outfits</h3>
+      <button class="active" onclick="changeOutfit(0, this)">Pink Ballgown</button>
+      <button onclick="changeOutfit(1, this)">Black Mini</button>
+      <button onclick="changeOutfit(2, this)">Enchanted Trio</button>
+    </div>
+    <div class="main">
+      <img id="char" class="character" src="1aaPM.jpg" alt="Model">
+      <div id="score">Score: --</div>
+      <button onclick="poseAndScore()">Pose & Get Score</button>
+    </div>
+    <div class="right">
+      <h3>Leaderboard</h3>
+      <p>You: <span id="you">0</span></p>
+      <p>Player2: 88</p>
+      <p>Player3: 76</p>
+      <button onclick="newRound()">New Round</button>
+    </div>
+  </div>
+</div>
+<script>
+const outfits = [
+  {src: "1aaPM.jpg", base: 92},
+  {src: "M4yYJ.jpg", base: 85},
+  {src: "zRFl9.jpg", base: 88}
+];
+const themes = ["Enchanted Evening", "Gothic Romance", "Beach Party", "Red Carpet", "Halloween", "Fairy Tale", "Alien Royalty"];
+let current = 0;
+function changeOutfit(i, btn) {
+  current = i;
+  document.getElementById("char").src = outfits[i].src;
+  document.querySelectorAll("button").forEach(b => b.classList.remove("active"));
+  btn.classList.add("active");
+}
+function changeTheme() {
+  document.getElementById("theme").textContent = themes[Math.floor(Math.random()*themes.length)];
+}
+function poseAndScore() {
+  const score = outfits[current].base + Math.floor(Math.random()*12);
+  document.getElementById("score").textContent = "Score: " + score;
+  document.getElementById("you").textContent = score;
+  alert(score > 90 ? "Runway Queen! 👑" : "Great look! ✨");
+}
+function newRound() {
+  document.getElementById("score").textContent = "Score: --";
+  document.getElementById("you").textContent = "0";
+  changeTheme();
+}
+</script>
+</body>
+</html>
