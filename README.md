@@ -1,10 +1,9 @@
 # Dress to Impress
 
-Interactive fashion game inspired by Dress to Impress.
+Interactive second-person fashion game.
 
-Open `index.html` in a browser to play.
+Open `index.html` in a browser.
 
-- Choose outfits
-- Random themes
-- Pose and score
-- Leaderboard
+- Choose your look
+- Get themes
+- You pose and score

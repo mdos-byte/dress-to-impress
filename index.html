@@ -17,6 +17,7 @@ button:hover { background: #ff1493; }
 button.active { background: #da70d6; }
 #theme { font-size: 20px; font-weight: bold; color: #c71585; padding: 10px; background: #fff0f5; border-radius: 10px; }
 #score { font-size: 24px; color: #ff1493; }
+.message { margin-top: 10px; font-size: 18px; color: #c71585; min-height: 30px; }
 </style>
 </head>
 <body>
@@ -24,33 +25,34 @@ button.active { background: #da70d6; }
   <h1>✨ DRESS TO IMPRESS ✨</h1>
   <div class="game">
     <div class="sidebar">
-      <h3>Theme</h3>
+      <h3>Your Theme</h3>
       <div id="theme">Enchanted Evening</div>
-      <button onclick="changeTheme()">New Theme</button>
-      <h3>Outfits</h3>
+      <button onclick="changeTheme()">Get a New Theme</button>
+      <h3>Choose Your Look</h3>
       <button class="active" onclick="changeOutfit(0, this)">Pink Ballgown</button>
       <button onclick="changeOutfit(1, this)">Black Mini</button>
       <button onclick="changeOutfit(2, this)">Enchanted Trio</button>
     </div>
     <div class="main">
-      <img id="char" class="character" src="1aaPM.jpg" alt="Model">
-      <div id="score">Score: --</div>
-      <button onclick="poseAndScore()">Pose & Get Score</button>
+      <img id="char" class="character" src="1aaPM.jpg" alt="Your model">
+      <div id="score">Your Score: --</div>
+      <div class="message" id="message">Pick a look and strut the runway!</div>
+      <button onclick="poseAndScore()">You Pose on the Runway</button>
     </div>
     <div class="right">
       <h3>Leaderboard</h3>
       <p>You: <span id="you">0</span></p>
-      <p>Player2: 88</p>
-      <p>Player3: 76</p>
-      <button onclick="newRound()">New Round</button>
+      <p>LillyGrace: 88</p>
+      <p>SkylerB: 76</p>
+      <button onclick="newRound()">Start a New Round</button>
     </div>
   </div>
 </div>
 <script>
 const outfits = [
-  {src: "1aaPM.jpg", base: 92},
-  {src: "M4yYJ.jpg", base: 85},
-  {src: "zRFl9.jpg", base: 88}
+  {src: "1aaPM.jpg", base: 92, name: "Pink Ballgown"},
+  {src: "M4yYJ.jpg", base: 85, name: "Black Mini"},
+  {src: "zRFl9.jpg", base: 88, name: "Enchanted Trio"}
 ];
 const themes = ["Enchanted Evening", "Gothic Romance", "Beach Party", "Red Carpet", "Halloween", "Fairy Tale", "Alien Royalty"];
 let current = 0;
@@ -59,19 +61,25 @@ function changeOutfit(i, btn) {
   document.getElementById("char").src = outfits[i].src;
   document.querySelectorAll("button").forEach(b => b.classList.remove("active"));
   btn.classList.add("active");
+  document.getElementById("message").textContent = "You chose the " + outfits[i].name + " look!";
 }
 function changeTheme() {
-  document.getElementById("theme").textContent = themes[Math.floor(Math.random()*themes.length)];
+  const theme = themes[Math.floor(Math.random()*themes.length)];
+  document.getElementById("theme").textContent = theme;
+  document.getElementById("message").textContent = "Your new theme is: " + theme + ". Dress to match!";
 }
 function poseAndScore() {
   const score = outfits[current].base + Math.floor(Math.random()*12);
-  document.getElementById("score").textContent = "Score: " + score;
+  document.getElementById("score").textContent = "Your Score: " + score;
   document.getElementById("you").textContent = score;
-  alert(score > 90 ? "Runway Queen! 👑" : "Great look! ✨");
+  const msg = score > 90 ? "You slayed the runway! 👑" : score > 80 ? "You look amazing! ✨" : "Cute look — keep styling!";
+  document.getElementById("message").textContent = msg;
+  alert(msg);
 }
 function newRound() {
-  document.getElementById("score").textContent = "Score: --";
+  document.getElementById("score").textContent = "Your Score: --";
   document.getElementById("you").textContent = "0";
+  document.getElementById("message").textContent = "New round started. Choose your look!";
   changeTheme();
 }
 </script>
